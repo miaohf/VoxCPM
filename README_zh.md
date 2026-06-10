@@ -58,7 +58,7 @@ VoxCPM 是一个**无离散音频分词器**（Tokenizer-Free）的语音合成�
 
 ### 最新动态
 
-* **[2026.04]** 🔥 发布 **VoxCPM2** — 20亿参数，30种语言，音色设计与可控声音克隆，48kHz 音频输出！[模型权重](https://huggingface.co/openbmb/VoxCPM2) | [使用文档](https://voxcpm.readthedocs.io/zh-cn/latest/) | [在线体验](https://huggingface.co/spaces/OpenBMB/VoxCPM-Demo) | [官网体验](https://voxcpm.modelbest.cn/) (适用国内访问)
+* **[2026.04]** 🔥 发布 **VoxCPM2** — 20亿参数，30种语言，音色设计与可控声音克隆，48kHz 音频输出！[模型权重](https://huggingface.co/openbmb/VoxCPM2) | [使用文档](https://voxcpm.readthedocs.io/zh-cn/latest/) | [在线体验](https://huggingface.co/spaces/OpenBMB/VoxCPM-Demo) | [官网体验](https://voxcpm.modelbest.cn/) (适用国内访问) | [技术报告](https://arxiv.org/abs/2606.06928)
 * **[2025.12]** 🎉 开源 **VoxCPM1.5** [模型权重](https://huggingface.co/openbmb/VoxCPM1.5)，支持 SFT 和 LoRA 微调。(**🏆 GitHub Trending #1**)
 * **[2025.09]** 🔥 发布 VoxCPM [技术报告](https://arxiv.org/abs/2509.24650)。
 * **[2025.09]** 🎉 开源 **VoxCPM-0.5B** [模型权重](https://huggingface.co/openbmb/VoxCPM-0.5B) (**🏆 HuggingFace Trending #1**)
@@ -241,6 +241,14 @@ voxcpm --help
 python app.py --port 8808  # 然后在浏览器打开 http://localhost:8808
 ```
 
+使用 `--device` 选择运行设备：
+
+```bash
+python app.py --device auto
+```
+
+支持的取值包括 `auto`、`cpu`、`mps`、`cuda` 和 `cuda:N`。在 Apple Silicon Mac 上，`auto` 会在可用时使用 MPS。
+
 ### 🚢 生产部署（Nano-vLLM）
 
 如需高吞吐量部署，使用 [**Nano-vLLM-VoxCPM**](https://github.com/a710128/nanovllm-voxcpm) — 基于 Nano-vLLM 构建的专用推理引擎，支持并发请求和异步 API。
@@ -308,13 +316,13 @@ curl http://localhost:8000/v1/audio/speech \
 | **RTF Nano-VLLM (RTX 4090)** | ~0.13 | ~0.08 | ~0.10 |
 | **显存占用** | ~8 GB | ~6 GB | ~5 GB |
 | **模型权重** | [🤗 HF](https://huggingface.co/openbmb/VoxCPM2) / [MS](https://modelscope.cn/models/OpenBMB/VoxCPM2) | [🤗 HF](https://huggingface.co/openbmb/VoxCPM1.5) / [MS](https://modelscope.cn/models/OpenBMB/VoxCPM1.5) | [🤗 HF](https://huggingface.co/openbmb/VoxCPM-0.5B) / [MS](https://modelscope.cn/models/OpenBMB/VoxCPM-0.5B) |
-| **技术报告** | 即将发布 | — | [arXiv](https://arxiv.org/abs/2509.24650) [ICLR 2026](https://openreview.net/forum?id=h5KLpGoqzC) |
+| **技术报告** | [arXiv](https://arxiv.org/abs/2606.06928) | — | [arXiv](https://arxiv.org/abs/2509.24650) [ICLR 2026](https://openreview.net/forum?id=h5KLpGoqzC) |
 | **Demo 页面** | [音频示例](https://openbmb.github.io/voxcpm2-demopage) | — | [音频示例](https://openbmb.github.io/VoxCPM-demopage) |
 
 VoxCPM2 采用**连续音频表征、扩散自回归**范式，模型在 **AudioVAE** 的连续隐空间中通过四阶段处理：**LocEnc → TSLM → RALM → LocDiT**，实现丰富的表现力语音合成和 48kHz 原生音频输出。
 
 <div align="center">
-  <img src="assets/voxcpm_model.png" alt="VoxCPM2 模型架构" width="90%">
+  <img src="assets/voxcpm2_model.png" alt="VoxCPM2 模型架构" width="90%">
 </div>
 
 > 完整架构细节、VoxCPM2 升级内容和模型对比表见 [架构设计文档](https://voxcpm.readthedocs.io/zh-cn/latest/models/architecture.html)。
@@ -575,21 +583,18 @@ python lora_ft_webui.py   # 然后打开 http://localhost:7860
 如果 VoxCPM 对您有帮助，请考虑引用我们的工作并为仓库加星 ⭐！
 
 ```bib
-@article{voxcpm2_2026,
-  title   = {VoxCPM2: Tokenizer-Free TTS for Multilingual Speech Generation, Creative Voice Design, and True-to-Life Cloning},
-  author  = {VoxCPM Team},
-  journal = {GitHub},
+@article{zhou2026voxcpm2,
+  title   = {VoxCPM2 Technical Report},
+  author  = {Zhou, Yixuan  and Zeng, Guoyang and Liu, Xin and Li, Xiang and Yu, Renjie and Gui, Jiancheng and Wu, Jiaheng and Wang, Ziyang and Shen, Xudong and Ye, Runchuan  and Zhang, Zhisheng and Zhou, Jiuyang and Bai, Bingsong and Sun, Weiyue and Deng, Mengyuan and Shi, Qundong and Wu, Zhiyong and Liu, Zhiyuan},
+  journal = {arXiv preprint arXiv:2606.06928},
   year    = {2026},
 }
 
-@article{voxcpm2025,
-  title   = {VoxCPM: Tokenizer-Free TTS for Context-Aware Speech Generation
-             and True-to-Life Voice Cloning},
-  author  = {Zhou, Yixuan and Zeng, Guoyang and Liu, Xin and Li, Xiang and
-             Yu, Renjie and Wang, Ziyang and Ye, Runchuan and Sun, Weiyue and
-             Gui, Jiancheng and Li, Kehan and Wu, Zhiyong and Liu, Zhiyuan},
+@article{zhou2025voxcpm,
+  title = {Voxcpm: Tokenizer-free TTS for context-aware speech generation and true-to-life voice cloning},
+  author = {Zhou, Yixuan and Zeng, Guoyang and Liu, Xin and Li, Xiang and Yu, Renjie and Wang, Ziyang and Ye, Runchuan and Sun, Weiyue and Gui, Jiancheng and Li, Kehan and Wu, Zhiyong and Liu, Zhiyuan},
   journal = {arXiv preprint arXiv:2509.24650},
-  year    = {2025},
+  year = {2025}
 }
 ```
 
