@@ -47,8 +47,8 @@ dependencies = [
     "funasr",
     "spaces",
     "argbind",
-    "safetensors"
-
+    "safetensors",
+    "sqlalchemy>=2.0.49",
 ]
 
 [project.optional-dependencies]

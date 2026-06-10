@@ -1,0 +1,28 @@
+[Unit]
+Description=VoxCPM OpenAI-Compatible API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=miaohf
+Group=miaohf
+WorkingDirectory=/home/miaohf/Documents/mycode/VoxCPM
+
+Environment=HOST=0.0.0.0
+Environment=PORT=8808
+Environment=ALLOWED_MODELS=openbmb/VoxCPM2
+Environment=VOICE_REFERENCES_DIR=/home/miaohf/Documents/mycode/VoxCPM/assets/voices
+Environment=VOICES_DB_PATH=/home/miaohf/Documents/mycode/VoxCPM/data/voices.sqlite
+Environment=PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+Environment=TOKENIZERS_PARALLELISM=false
+
+ExecStart=/snap/bin/uv run -m api
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=600
+TimeoutStopSec=60
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

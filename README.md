@@ -277,10 +277,10 @@ See the [vLLM-Omni installation guide](https://vllm-omni.readthedocs.io/en/lates
 
 ```bash
 # Launch an OpenAI-compatible TTS server (--omni enables omni-modal serving)
-vllm serve openbmb/VoxCPM2 --omni --port 8000
+vllm serve openbmb/VoxCPM2 --omni --port 8808
 
 # Call it from any OpenAI client
-curl http://localhost:8000/v1/audio/speech \
+curl http://localhost:8808/v1/audio/speech \
   -H "Content-Type: application/json" \
   -d '{"model":"openbmb/VoxCPM2","input":"Hello from VoxCPM2 on vLLM-Omni!","voice":"default"}' \
   --output out.wav
